@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Disease Prediction Chatbot</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🩺 Disease Prediction Chatbot</h1>
+        <div id="chat-box"></div>
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Describe your symptoms...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput) return;
+
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += `<div class="user-message">🧑‍⚕️ You: ${userInput}</div>`;
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({message: userInput})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    chatBox.innerHTML += `<div class="bot-message error">❗ ${data.error}</div>`;
+                } else {
+                    chatBox.innerHTML += `
+                        <div class="bot-message">
+                            <div class="disease-title">🔍 <b>${data.disease}</b></div>
+                            <div class="explanation">
+                                ${data.explanation.replace(/\n/g, '<br>')}
+                            </div>
+                        </div>`;
+                }
+                document.getElementById('user-input').value = '';
+                chatBox.scrollTop = chatBox.scrollHeight;
+            });
+        }
+    </script>
+</body>
+</html>

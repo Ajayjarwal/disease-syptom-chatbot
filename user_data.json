@@ -1,0 +1,10 @@
+{
+    "Fever": true,
+    "Cough": true,
+    "Fatigue": null,
+    "Difficulty Breathing": null,
+    "Blood Pressure": null,
+    "Cholesterol Level": null,
+    "Age": 25,
+    "Gender": null
+}
