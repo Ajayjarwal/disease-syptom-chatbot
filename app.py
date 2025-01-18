@@ -12,7 +12,7 @@ with open('best_knn_model.pkl', 'rb') as file:
 with open('disease_mapping.json', 'r') as file:
     disease_mapping = json.load(file)
 
-genai.configure(api_key="AIzaSyDrakDZYy4hvD-yUCCtld5wUKnct2DsXNE")
+genai.configure(api_key="YOUR_API_KEY")
 model_gemini = genai.GenerativeModel("gemini-pro")
 
 features_list = ["Fever", "Cough", "Fatigue", "Difficulty Breathing", "Blood Pressure", "Cholesterol Level"]
